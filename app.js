@@ -1,0 +1,15 @@
+const path = require('path')
+const express = require('express')
+const app = express()
+app.listen(3007, () => console.log('大事件服务器已启动......'))
+const cors = require('cors')
+app.use(cors())
+app.use(express.urlencoded({
+    extended: false
+}))
+app.use(express.static(path.join(__dirname, 'uploads')))
+// const login = require(path.join(__dirname, 'routers', 'login'))
+app.use('/api', require(path.join(__dirname, 'routers', 'login')))
+app.use('/my', require(path.join(__dirname, 'routers', 'user')))
+app.use('/my/article', require(path.join(__dirname, 'routers', 'category')))
+app.use('/my/article', require(path.join(__dirname, 'routers', 'article')))
